@@ -1,6 +1,9 @@
 type: 1 #for processing with webcam give 1 else give 2 and give path of the video below 
 video_path: "" 
+
 model_path: "../models/centernetMobilenet_kpts.onnx"
+
 original_fps: 25
 processing_fps: 25
-intrusion_coords: [[0,0],[1,1],[2,2],[3,3]]
+
+intrusion_coords: [[173, 357], [173, 137], [503, 141], [515, 337], [400, 286]]
