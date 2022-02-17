@@ -1,16 +1,15 @@
 import onnxruntime
 import cv2
 import numpy as np
+import yaml
+with open('../config.yaml') as f:
+    config = yaml.load(f, Loader=yaml.FullLoader)
 
-from config import Config
-
-
-config = Config()
 
 class Model():
     def __init__(self):
         print("loading onnx model and warming up")
-        self.model = onnxruntime.InferenceSession(config.model_path, None)
+        self.model = onnxruntime.InferenceSession(config['model_path'], None)
         img = np.zeros([320,320,3],dtype=np.float32)
         _ = self.onnx_inf(self.model,img)
         print("ONNX model_ready")

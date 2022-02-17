@@ -1,0 +1,6 @@
+
+type: 1
+video_path: ""
+model_path: "../models/centernetMobilenet_kpts.onnx"
+original_fps: 25
+processing_fps: 5

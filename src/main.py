@@ -3,14 +3,15 @@ import queue
 import time
 import traceback
 from threading import Thread
+import yaml
 
-import onnxruntime
 import cv2
 
-from config import Config
-from onnx_loading.model_onnx import Model
+from onnx_utils.model_onnx import Model
 
-
-config = Config()
+#loading the config file
+with open('../config.yaml') as f:
+    config = yaml.load(f, Loader=yaml.FullLoader)
+    
 model = Model()
-print(config.orginal_fps)
+print(config['original_fps'])
