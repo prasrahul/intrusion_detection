@@ -9,6 +9,7 @@ import cv2
 
 from onnx_utils.model_onnx import Model
 from post_process.intrusion_detection import intruion
+from post_process.social_distance import soc_dis
 
 #loading the config file
 with open('../config.yaml') as f:
@@ -66,7 +67,8 @@ def main():
         #CAM_1
         try:
             output_dict = model.infer(image)
-            out_image = intruion(output_dict,image)         
+            out_image = intruion(output_dict,image)
+            out_image = soc_dis(out_image,output_dict)         
             cv2.imshow("output", out_image)
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
