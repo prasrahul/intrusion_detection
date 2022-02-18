@@ -11,6 +11,7 @@ setup(
     install_requires=[
         'pyyaml'
         'opencv-python',
-        'onnxruntime'
+        'onnxruntime',
+        'shapely'
     ]
 )
