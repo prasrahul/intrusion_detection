@@ -1,3 +1,4 @@
+from email.mime import image
 import logging
 import queue
 import time
@@ -74,17 +75,17 @@ def main():
             if 1 in config['process']:
                 image,violation = intruion(output_dict,image)
                 if violation :
-                    audio_q.put(1)
+                    audio_q.put((1,image))
                 else:
-                    audio_q.put(0)
+                    audio_q.put((0,image))
                     
                 
             if 2 in config['process']: 
                 image,violation = soc_dis(image,output_dict)
                 if violation :
-                    audio_q.put(1)
+                    audio_q.put((1,image))
                 else:
-                    audio_q.put(0)
+                    audio_q.put((0,image))
                          
             cv2.imshow("output", image)
             if cv2.waitKey(1) & 0xFF == ord('q'):
