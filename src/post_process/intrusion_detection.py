@@ -9,6 +9,7 @@ with open('../config.yaml') as f:
     config = yaml.load(f, Loader=yaml.FullLoader)
     
 def intruion(output_dict,image):
+    violation = False
     pts = np.array([config['intrusion_coords'][0],
                     config['intrusion_coords'][1],
                     config['intrusion_coords'][2],
@@ -36,9 +37,10 @@ def intruion(output_dict,image):
                                config['intrusion_coords'][3]])
             if polygon.contains(point) :
                 cv2.rectangle(image, p1, p2, (0, 0, 255), 2)
+                violation = True
         for j in range(0,17):
             if output_dict['keypoint_scores'][i][j] > 0.60:
                 (cy, cx) = (output_dict['kpts'][i][j][0] * im_height, output_dict['kpts'][i][j][1] * im_width)
                 cv2.circle(image, (int(cx), int(cy)), 2, (255, 255, 255), 2)
                         
-    return image
+    return image , violation

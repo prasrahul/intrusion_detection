@@ -4,6 +4,7 @@ import numpy as np
 def soc_dis(image_np,output_dict):
     data = []
     im_height, im_width, c = image_np.shape
+    violation = False
 
     for i in range(int(output_dict['number_detections'])):
         if output_dict['person_scores'][i] > 0.60:
@@ -31,5 +32,6 @@ def soc_dis(image_np,output_dict):
                             cv2.rectangle(image_np, j[2][0], j[2][1], (0, 0, 255), 2, 1)
                             cv2.rectangle(image_np, e[2][0], e[2][1], (0, 0, 255), 2, 1)
                             cv2.line(image_np,(j[1][0],j[1][1]),(e[1][0],e[1][1]),(0, 0, 255), 1)
+                            violation = True
                 
-    return image_np
+    return image_np , violation

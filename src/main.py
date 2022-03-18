@@ -10,6 +10,7 @@ import cv2
 from onnx_utils.model_onnx import Model
 from post_process.intrusion_detection import intruion
 from post_process.social_distance import soc_dis
+from audio_utils.play_sound import play_sound
 
 #loading the config file
 with open('../config.yaml') as f:
@@ -21,6 +22,7 @@ model = Model()
 
 #Queue for frames
 frame_q = queue.Queue()
+audio_q = queue.Queue()
 
 #Variable for processing nth frame
 mod = int(config['original_fps']/config['processing_fps'])
@@ -70,10 +72,19 @@ def main():
         try:
             output_dict = model.infer(image)
             if 1 in config['process']:
-                image = intruion(output_dict,image)
+                image,violation = intruion(output_dict,image)
+                if violation :
+                    audio_q.put(1)
+                else:
+                    audio_q.put(0)
+                    
                 
             if 2 in config['process']: 
-                image = soc_dis(image,output_dict)
+                image,violation = soc_dis(image,output_dict)
+                if violation :
+                    audio_q.put(1)
+                else:
+                    audio_q.put(0)
                          
             cv2.imshow("output", image)
             if cv2.waitKey(1) & 0xFF == ord('q'):
@@ -85,5 +96,6 @@ def main():
 
 if __name__ == '__main__':
     Thread(target=read,daemon=True).start()
+    Thread(target=play_sound,args=(audio_q,),daemon=True).start()
     main()
     
