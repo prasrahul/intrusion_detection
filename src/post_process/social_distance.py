@@ -6,7 +6,7 @@ def soc_dis(image_np,output_dict):
     im_height, im_width, c = image_np.shape
 
     for i in range(int(output_dict['number_detections'])):
-        if output_dict['person_scores'][i] > 0.50:
+        if output_dict['person_scores'][i] > 0.60:
             (x_min, x_max, y_min, y_max) = (
                 output_dict['person_box'][i][1] * im_width, output_dict['person_box'][i][3] * im_width,
                 output_dict['person_box'][i][0] * im_height, output_dict['person_box'][i][2] * im_height)
