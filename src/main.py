@@ -61,15 +61,21 @@ def read():
 
 def main():
     print("starting main func")
+    if 1 in config['process']:
+        print("activating Intrusion detection ")
+    if 2 in config['process']: 
+        print("activating Social distance")
     while True:
         (cam_id,image) = frame_q.get()
-        #st = time.time()
-        #CAM_1
         try:
             output_dict = model.infer(image)
-            out_image = intruion(output_dict,image)
-            out_image = soc_dis(out_image,output_dict)         
-            cv2.imshow("output", out_image)
+            if 1 in config['process']:
+                image = intruion(output_dict,image)
+                
+            if 2 in config['process']: 
+                image = soc_dis(image,output_dict)
+                         
+            cv2.imshow("output", image)
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
                 

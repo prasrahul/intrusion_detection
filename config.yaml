@@ -1,9 +1,11 @@
 type: 1 #for processing with webcam give 1 else give 2 and give path of the video below 
-video_path: "" 
+video_path: "/home/prasanna/mirrag_data/social_dis/video.mp4" 
 
 model_path: "../models/centernetMobilenet_kpts.onnx"
+
+process : [1,2] #give 1 for intrusion detection, 2 for social distance and 1,2 for both
 
 original_fps: 25
 processing_fps: 25
 
-intrusion_coords: [[410, 137], [408, 22], [589, 24], [600, 124], [482, 166]]
+intrusion_coords: [[280, 514], [259, 156], [921, 131], [946, 402], [798, 319]]
